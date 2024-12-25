@@ -18,7 +18,7 @@ export default function HomePage() {
           </div>
           <div>
             <Link
-              href="/chainsafe/add"
+              href="/chainsafe/app"
               className="text-blue-500 hover:text-blue-600 underline"
             >
               Add Optional Chaining

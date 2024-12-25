@@ -43,7 +43,7 @@ const ChainSafeLanding = () => {
                         </p>
 
                         <div className="flex flex-wrap justify-center gap-4">
-                            <Link href="/chainsafe/add">
+                            <Link href="/chainsafe/app">
                                 <Button className="h-12 px-8 text-lg bg-white hover:bg-zinc-200 text-black border-0">
                                     Try Online Editor
                                     <ArrowRight className="ml-2 w-5 h-5" />
