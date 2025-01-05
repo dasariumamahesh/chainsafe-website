@@ -16,8 +16,8 @@ const geistMono = localFont({
 });
 
 export const metadata = {
-  title: "Chainsafe",
-  description: "Add optional chaining",
+  title: "Uma Mahesh Dasari | Senior Node.js Developer",
+  description: "Senior Node.js Developer specializing in AWS and Azure cloud solutions",
 };
 
 export default function RootLayout({ children }) {

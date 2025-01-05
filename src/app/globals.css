@@ -6,32 +6,23 @@
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-
     --primary: 222.2 47.4% 11.2%;
     --primary-foreground: 210 40% 98%;
-
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 222.2 84% 4.9%;
-
     --radius: 0.5rem;
 
     /* Custom Colors */
@@ -42,41 +33,34 @@
     --button-bg: 210 40% 96.1%;
     --button-hover: 210 40% 90%;
     --button-text: 222.2 84% 4.9%;
+
+    /* Custom Sizes */
+    --nav-height: 4rem;
+    --header-height: 5rem;
   }
 
   .dark {
     --background: 222.2 84% 2%;
-    /* Darker background */
     --foreground: 210 40% 98%;
-
     --card: 222.2 84% 2%;
     --card-foreground: 210 40% 98%;
-
     --popover: 222.2 84% 2%;
     --popover-foreground: 210 40% 98%;
-
     --primary: 210 40% 98%;
     --primary-foreground: 222.2 47.4% 11.2%;
-
     --secondary: 217.2 32.6% 12%;
-    /* Darker secondary */
     --secondary-foreground: 210 40% 98%;
-
     --muted: 217.2 32.6% 12%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 217.2 32.6% 12%;
     --accent-foreground: 210 40% 98%;
-
     --destructive: 0 62.8% 20.6%;
-    /* Darker destructive */
     --destructive-foreground: 210 40% 98%;
-
     --border: 217.2 32.6% 12%;
     --input: 217.2 32.6% 12%;
     --ring: 212.7 26.8% 83.9%;
 
-    /* Custom Colors - Making these darker too */
+    /* Custom Colors - Dark Mode */
     --header-bg: 222.2 84% 2%;
     --header-border: 217.2 32.6% 12%;
     --textarea-bg: 222.2 84% 2%;
@@ -88,33 +72,71 @@
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height);
+  }
+
   * {
     @apply border-border;
   }
 
   body {
-    @apply bg-background text-foreground min-h-screen;
+    @apply bg-background text-foreground min-h-screen antialiased;
   }
 
+  /* Enhanced Smooth transitions */
   *,
   *::before,
   *::after {
-    transition-property: color, background-color, border-color;
-    transition-duration: 200ms;
-    transition-timing-function: ease-in-out;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
+  }
+
+  /* Specific transitions for theme switching */
+  .dark body {
+    transition: background-color 400ms ease;
+  }
+
+  [data-theme-transition] {
+    transition: background-color 400ms ease,
+                border-color 400ms ease,
+                color 400ms ease,
+                fill 400ms ease;
   }
 }
 
 @layer components {
   .drag-overlay {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.2s ease-in-out;
+    @apply opacity-0 invisible transition-all duration-200 ease-in-out;
   }
 
   .drag-overlay.active {
-    opacity: 1;
-    visibility: visible;
+    @apply opacity-100 visible;
+  }
+
+  /* Navigation styles */
+  .nav-link {
+    @apply px-4 py-2 text-sm font-medium transition-colors relative
+           text-zinc-600 hover:text-blue-600 dark:text-zinc-400 dark:hover:text-blue-400;
+  }
+
+  .nav-link.active {
+    @apply text-blue-600 dark:text-blue-400;
+  }
+
+  .nav-link.active::after {
+    @apply content-[''] absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 dark:bg-blue-400;
+  }
+
+  /* Section styles */
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold text-center text-zinc-900 dark:text-zinc-100 mb-12;
   }
 }
 
@@ -129,23 +151,40 @@
   }
 
   .textarea-base {
-    @apply w-full h-full pt-6 px-4 pb-4 text-sm font-mono border rounded-md;
-    @apply focus:outline-none focus:ring-0 focus:border-2 focus:border-purple-500;
-    @apply resize-none bg-[hsl(var(--textarea-bg))] border-[hsl(var(--textarea-border))];
+    @apply w-full h-full pt-6 px-4 pb-4 text-sm font-mono border rounded-md
+           focus:outline-none focus:ring-0 focus:border-2 focus:border-blue-500
+           resize-none bg-[hsl(var(--textarea-bg))] border-[hsl(var(--textarea-border))];
   }
 
   .button-secondary {
-    @apply flex items-center gap-2 bg-[hsl(var(--button-bg))];
-    @apply text-[hsl(var(--button-text))] hover:bg-[hsl(var(--button-hover))];
+    @apply flex items-center gap-2 bg-[hsl(var(--button-bg))]
+           text-[hsl(var(--button-text))] hover:bg-[hsl(var(--button-hover))];
+  }
+
+  .gradient-blur {
+    @apply bg-gradient-to-b from-white to-transparent dark:from-zinc-900 dark:to-transparent;
+  }
+
+  .glassmorphism {
+    @apply bg-white/80 dark:bg-zinc-900/80 backdrop-blur-sm border border-zinc-200/50 dark:border-zinc-700/50;
   }
 }
 
-/* At the end of src/app/globals.css */
+/* Prevent Flash of Incorrect Theme */
 .prevent-flash {
-  opacity: 0;
-  transition: opacity 0.3s ease;
+  @apply opacity-0 transition-opacity duration-300;
 }
 
 .loaded {
-  opacity: 1;
+  @apply opacity-100;
+}
+
+/* Animations */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
 }

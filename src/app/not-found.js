@@ -7,10 +7,9 @@ export default function NotFound() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push('/chainsafe');
+    router.push('/developer');
   }, [router]);
 
-  // Return a loading state while redirecting
   return (
     <div className="min-h-screen flex items-center justify-center">
       <div className="text-center space-y-4">
