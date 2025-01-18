@@ -107,7 +107,7 @@ const ProfileImage = () => (
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full opacity-20 blur-2xl animate-pulse" />
         <div className="relative w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-zinc-800 shadow-xl">
             <Image
-                src="/images/profile-image.jpg"
+                src="/images/suit.png"
                 alt="Uma Mahesh Dasari"
                 fill
                 className="object-cover"
